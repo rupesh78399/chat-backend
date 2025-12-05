@@ -1,0 +1,24 @@
+name: Fix Maven Wrapper Permissions
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  fix-permissions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Fix mvnw permissions
+        run: |
+          chmod +x mvnw
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "GitHub Actions"
+          git add mvnw
+          git commit -m "Fix mvnw permissions" || echo "No changes"
+          git push
